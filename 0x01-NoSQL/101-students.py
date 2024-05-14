@@ -1,5 +1,9 @@
-// list all documents of school mango
+#!/usr/bin/env python3
+""" documentation module """
+
+
 def top_students(mongo_collection):
+    """ to students by average """
     flag = [
         {"$project": {
             "name": "$name",
