@@ -11,4 +11,4 @@ def top_students(mongo_collection):
         }},
         {"$sort": {"averageScore": -1}}
     ]
-    return mango_collection.aggregate(flag)
+    return mongo_collection.aggregate(flag)
