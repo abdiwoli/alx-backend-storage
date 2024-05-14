@@ -1,0 +1,4 @@
+// list all documents of school mango
+db.school.deleteMany(
+    { name: "Holberton school" }
+)
