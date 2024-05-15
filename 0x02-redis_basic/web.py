@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta
 import requests
 
-# Define a cache dictionary
+
 cache = {}
 cache_expiration = timedelta(seconds=10)
 
@@ -22,6 +22,7 @@ def get_page(url):
 def cache_data(func):
     """ Decorator for caching functionality """
     def wrapper(url):
+        """ wraper function """
         content = get_page(url)
         return content
 
