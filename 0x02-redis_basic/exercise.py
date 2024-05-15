@@ -16,7 +16,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(key: str, fn: Optional[Callable]) -> Any:
+    def get(key: str, fn: Optional[Callable] = None) -> Any:
         if fn is int:
             return self.get_int(key)
         if fn is str:
