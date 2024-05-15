@@ -16,17 +16,7 @@ def update_cache(url, content):
 
 def get_page(url):
     """Fetches the HTML contE ent of a URL with caching. """
-
-    cached_value = cache.get(url)
-    if cached_value and datetime.utcnow() - cached_value[1] < cache_expiration:
-        return cached_value[0]
-
-    # Fetch content if not cached or expired
-    response = requests.get(url)
-    response.raise_for_status()
-    content = response.text
-    update_cache(url, content)
-    return content
+    return requests.get(url).text
 
 
 def cache_data(func):
