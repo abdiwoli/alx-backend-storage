@@ -6,13 +6,24 @@ from typing import Union, Callable, Optional, Any
 from functools import wraps
 
 
-def count_calls(func: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """ Decorate function """
-    @wraps(func)
-    def wrapper(self:Any, *args, **kwargs) -> str:
+    @wraps(method)
+    def wrapper(self: Any, *args, **kwargs) -> str:
         """ callable function """
-        self._redis.incr(func.__qualname__)
-        return func(self, *args, **kwargs)
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """ docorate function """
+    @wraps(method)
+    def wrapper(self: Any, *args, **kwargs) -> str:
+        self._redis.rpush(f'{method.__qualname__}:inputs', str(args))
+        output = method(self, *args)
+        self._redis.rpush(f'{method.__qualname__}:outputs', output)
+        return output
     return wrapper
 
 
@@ -23,6 +34,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
