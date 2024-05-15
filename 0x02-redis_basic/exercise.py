@@ -18,18 +18,16 @@ class Cache:
 
     def get(key: str, fn: Optional[Callable]) -> Any:
         if fn is int:
-            return self.get_int()
+            return self.get_int(key)
         if fn is str:
-            return self.get_str()
+            return self.get_str(key)
         val = self._redis.get(key)
         if fn and Callable(fn):
             return fn(val)
         return val
 
-    def get_str(self) -> str:
-        return self._redis.get().decode('utf-8')
+    def get_str(self, key: str) -> str:
+        return self._redis.get(key).decode('utf-8')
 
-    def get_int(self) -> int:
-        return int(self._redis.get())
-        
-        
+    def get_int(self, key: str) -> int:
+        return int(self._redis.get(key))
