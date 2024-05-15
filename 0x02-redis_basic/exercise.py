@@ -9,10 +9,10 @@ from functools import wraps
 def count_calls(func: Callable) -> Callable:
     """ Decorate function """
     @wraps(func)
-    def wrapper(*args, **kwargs) -> str:
+    def wrapper(self:Any, *args, **kwargs) -> str:
         """ callable function """
         self._redis.incr(func.__qualname__)
-        return func(*args, **kwargs)
+        return func(self, *args, **kwargs)
     return wrapper
 
 
