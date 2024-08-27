@@ -8,7 +8,7 @@ BEGIN
     DECLARE avg_score FLOAT;
 
     -- Calculate the average score for the given user
-    SELECT AVG(score) INTO avg_score
+    SELECT IFNULL(AVG(score), 0) INTO avg_score
     FROM corrections
     WHERE user_id = user_id;
 
