@@ -1,0 +1,8 @@
+CREATE TRIGGER valid_email_triger 
+BEFORE UPDATE on users.email
+FOR EACH ROW
+BEGIN
+  IF NEW.email <> OLD.email THEN  -- Check if new email is different from old email
+    SET NEW.valid_email = 0;  -- Reset valid_email to 0 (assuming 0 means invalid)
+  END IF;
+END;
