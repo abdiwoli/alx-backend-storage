@@ -1,3 +1,4 @@
+-- Create the trigger 
 DELIMITER //
 
 CREATE PROCEDURE AddBonus(
