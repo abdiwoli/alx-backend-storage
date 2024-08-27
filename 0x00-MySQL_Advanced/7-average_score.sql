@@ -10,7 +10,7 @@ BEGIN
     -- Calculate the average score for the given user
     SELECT IFNULL(AVG(score), 0) INTO avg_score
     FROM corrections
-    WHERE user_id = user_id;
+    WHERE corrections.user_id = user_id;
 
     -- Update the user's average score in the users table
     UPDATE users
